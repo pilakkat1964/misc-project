@@ -41,12 +41,8 @@ jobs:
           cache-version: 0
           working-directory: docs
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "/misc"
         working-directory: docs
         env:
           JEKYLL_ENV: production
