@@ -1,0 +1,51 @@
+---
+layout: default
+---
+{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
+
+<!-- Site Hierarchy Navigation for Z-Tools Portfolio -->
+{% if site.hierarchy_level == 1 %}
+<style>
+  .hierarchy-nav {
+    background: #252a34;
+    border-bottom: 1px solid #51555d;
+    padding: 12px 0;
+    margin-bottom: 20px;
+  }
+  .hierarchy-nav a {
+    color: #eaeaea;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  .hierarchy-nav a:hover {
+    color: #bbb;
+    text-decoration: none;
+  }
+</style>
+<div class="hierarchy-nav" style="margin: 0 auto; max-width: 1200px; padding-left: 20px; padding-right: 20px;">
+  <a href="/" title="Navigate to site home">
+    ↑ Site Home
+  </a>
+</div>
+{% endif %}
+
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html locale=locale %}
+{% elsif page.header.video.id and page.header.video.provider %}
+  {% include page__hero_video.html %}
+{% endif %}
+
+<div id="main" role="main">
+  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
+    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
+    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+
+    <section class="page__content" itemprop="text">
+      {{ content }}
+    </section>
+  </article>
+</div>
